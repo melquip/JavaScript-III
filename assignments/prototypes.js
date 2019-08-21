@@ -84,18 +84,18 @@ function Car(model, make) {
 	this.odometer = 0;
 	this.canDrive = true;
 }
-Car.prototype.drive = function(distance) {
-	if(this.canDrive) {
+Car.prototype.drive = function (distance) {
+	if (this.canDrive) {
 		this.odometer += Number(distance);
 		return `Drove ${distance} miles. Odometer: ${this.odometer}.`;
 	}
 	return `I crashed at ${this.odometer} miles!`;
 };
-Car.prototype.crash = function() {
+Car.prototype.crash = function () {
 	this.canDrive = false;
 	return `I just crashed.`;
 };
-Car.prototype.repair = function() {
+Car.prototype.repair = function () {
 	this.canDrive = true;
 	return `I've been repaired.`;
 };
@@ -115,7 +115,7 @@ function Baby(name, age) {
 	Person.call(this, name, age);
 }
 Baby.prototype = Object.create(Person.prototype);
-Baby.prototype.play = function() {
+Baby.prototype.play = function () {
 	return `Baby played and said "Goo-goo ga-ga".`;
 };
 var baby = new Baby('Elias', 0.8);
@@ -129,7 +129,61 @@ console.log(baby.greet(), baby.play());
   complicated one with lots of state. Surprise us!
 
 */
-
+function Animal(name, type, wild, sound) {
+	this.name = (name === null ? 'Unknown' : name);
+	this.type = type;
+	this.tamed = !wild;
+	this.needName = false;
+	this.sound = sound;
+	this.stomach = [];
+	this.edibles = {
+		dog: ['dog food', 'mice', 'bones', 'bone'],
+		cat: ['cat food', 'fish', 'meat', 'grains'],
+		fox: ['rat', 'bird', 'frog'],
+	};
+}
+Animal.prototype.talk = function() {
+	return `My name is ${this.name} and I'm ${this.type}. ${this.makeSound()}`;
+};
+Animal.prototype.makeSound = function() {
+	// suposedly play sound :D
+	return `${this.sound}!`;
+};
+Animal.prototype.eat = function(something) {
+	let isFoodEdible = false;
+	if(this.edibles.hasOwnProperty(this.type)) {
+		isFoodEdible = this.edibles[this.type].includes(something);
+	}
+	return `${this.name} tried eating ${something}` + (isFoodEdible ? ' and liked it!' : ' but didn\'t like it.');
+};
+Animal.prototype.giveName = function(newName) {
+	if(this.tamed && this.needName) {
+		this.name = newName;
+		this.needName = false;
+		return `This ${this.type} is now called ${newName}.`;
+	} else if (!this.tamed) {
+		return `You can't give a name to this ${this.type} because it's not tamed!`;
+	}
+	return `This ${this.type} already has a name!`;
+};
+Animal.prototype.tame = function() {
+	if(!this.tamed) {
+		let chanceToTame = Math.random();
+		if(chanceToTame > 0.5) {
+			this.tamed = true;
+			this.needName = true;
+			return `You have successfully tamed this ${this.name} ${this.type}! Don't forget to give it a name!`;
+		}
+		return `You have failed to tame this ${this.name} ${this.type}.`;
+	}
+	return `${this.name} is already your pet!`;
+};
+var aDog = new Animal('Kikas', 'dog', false, 'Woof-woof');
+var aCat = new Animal('Whiskers', 'cat', false, 'Miaawwww');
+var aFox = new Animal(null, 'fox', true, 'Chacha-chacha-chacha-chow');
+console.log(aDog.talk(), aCat.talk(), aFox.talk());
+console.log(aDog.eat('fish'), aCat.eat('fish'), aFox.eat('fish'));
+console.log(aFox.tame(), aFox.giveName('Ember'));
 /*
 
   STRETCH TASK
