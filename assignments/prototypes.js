@@ -46,6 +46,27 @@
   - Give persons the ability to poop.
   - When pooping, the stomach should empty.
 
+*/
+function Person(name, age) {
+	this.name = name;
+	this.age = age;
+	this.stomach = [];
+}
+Person.prototype.greet = function () {
+	return `My name is ${this.name} and I'm ${this.age} years old.`;
+};
+Person.prototype.eat = function (edible) {
+	this.stomach.push(edible);
+	return `${this.name} just ate ${edible}.`;
+};
+Person.prototype.poop = function () {
+	this.stomach = [];
+	return `Stomach is empty now.`;
+};
+var me = new Person('Melqui', 21);
+console.log(me.greet(), me.eat('Rice'), me.poop());
+/*
+
   TASK 2
 
   - Build a Car constructor that takes model name and make.
@@ -56,12 +77,50 @@
   - Give cars the ability to be repaired.
   - A repaired car can be driven again.
 
+*/
+function Car(model, make) {
+	this.model = model;
+	this.make = make;
+	this.odometer = 0;
+	this.canDrive = true;
+}
+Car.prototype.drive = function(distance) {
+	if(this.canDrive) {
+		this.odometer += Number(distance);
+		return `Drove ${distance} miles. Odometer: ${this.odometer}.`;
+	}
+	return `I crashed at ${this.odometer} miles!`;
+};
+Car.prototype.crash = function() {
+	this.canDrive = false;
+	return `I just crashed.`;
+};
+Car.prototype.repair = function() {
+	this.canDrive = true;
+	return `I've been repaired.`;
+};
+var car = new Car('2011', 'Prius');
+console.log(car.drive(10), car.crash(), car.repair());
+/*
+
   TASK 3
 
   - Build a Baby constructor that subclasses the Person built earlier.
   - Babies of course inherit the ability to greet, which can be strange.
   - Babies should have the ability to play, which persons don't.
   - By playing, a string is returned with some text of your choosing.
+
+*/
+function Baby(name, age) {
+	Person.call(this, name, age);
+}
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function() {
+	return `Baby played and said "Goo-goo ga-ga".`;
+};
+var baby = new Baby('Elias', 0.8);
+console.log(baby.greet(), baby.play());
+/*
 
   TASK 4
 
@@ -108,10 +167,10 @@
 */
 
 /*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
+ * Inheritance chain: GameObject -> CharacterStats -> Humanoid
+ * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+ * Instances of CharacterStats should have all of the same properties as GameObject.
+ */
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
