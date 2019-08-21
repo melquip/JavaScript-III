@@ -135,7 +135,6 @@ function Animal(name, type, wild, sound) {
 	this.tamed = !wild;
 	this.needName = false;
 	this.sound = sound;
-	this.stomach = [];
 	this.edibles = {
 		dog: ['dog food', 'mice', 'bones', 'bone'],
 		cat: ['cat food', 'fish', 'meat', 'grains'],
