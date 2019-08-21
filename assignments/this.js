@@ -1,10 +1,14 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Window Binding -> The value of 'this' keyword is the window object when a function is invoked directly
-* 2. Implicit Binding -> The value of 'this' keyword changes based on how we call a method
-* 3. New Binding -> The value of 'this' keyword will be the object from instance created with a Constructor
-* 4. Explicit Binding -> The value of 'this' keyword can be changed when we invoke a function with .call, .apply or we can create a new function by using .bind and different 'this' value
+* 1. Window Binding
+* * * The value of 'this' keyword is the window object when a function is invoked directly in the global context.
+* 2. Implicit Binding
+* * * The value of 'this' keyword changes to the main object when we invoke a method using the dot notation.
+* 3. New Binding
+* * * The value of 'this' keyword will be the object from the new instance created with a Constructor
+* 4. Explicit Binding
+* * * The value of 'this' keyword will be whatever we want by passing that to the first argument when we invoke function.call, function.apply and also we can create a new function by using .bind and different 'this' value.
 *
 * write out a code example of each explanation above
 */
